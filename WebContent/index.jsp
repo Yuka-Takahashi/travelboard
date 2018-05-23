@@ -110,6 +110,7 @@
 								<a href="#" class="image featured"><img src="images/pic01.jpg" alt="" /></a>
 								<p><%=TextConv.beforeHtml(blogArticle.getBody())%>
 								</p>
+								
 								<footer>
 									<ul class="actions">
 										<li><a href="#" class="button big">‘±‚«‚ð“Ç‚Þ</a></li>
