@@ -26,7 +26,7 @@
 								<li><a href="#">NEW</a></li>
 								<li><a href="#">RANKING</a></li>
 								<li><a href="#">AREA</a></li>
-								<li><a href="comment_2.jsp?article_id=<%=blogArticle.getId()%>">+CREATE THREAD</a></li>
+								<li><a href="comment_2.jsp?article_id=<%=blogArticle.getId()%>">{CREATE THREAD</a></li>
 							</ul>
 						</nav>
 						<nav class="main">
@@ -60,25 +60,25 @@
 									<li>
 										<a href="#">
 											<h3>NEW</h3>
-											<p>æ–°ç€ã®ã‚¹ãƒ¬ãƒƒãƒ‰</p>
+											<p>V’…‚ÌƒXƒŒƒbƒh</p>
 										</a>
 									</li>
 									<li>
 										<a href="#">
 											<h3>RANKING</h3>
-											<p>ã‚³ãƒ¡ãƒ³ãƒˆãŒå¤šã„ã‚¹ãƒ¬ãƒƒãƒ‰</p>
+											<p>ƒRƒƒ“ƒg‚ª‘½‚¢ƒXƒŒƒbƒh</p>
 										</a>
 									</li>
 									<li>
 										<a href="#">
 											<h3>AREA</h3>
-											<p>ã‚¨ãƒªã‚¢ã”ã¨ã®ã‚¹ãƒ¬ãƒƒãƒ‰</p>
+											<p>ƒGƒŠƒA‚²‚Æ‚ÌƒXƒŒƒbƒh</p>
 										</a>
 									</li>
 									<li>
 										<a href="#">
 											<h3>MYPAGE</h3>
-											<p>ç™»éŒ²æƒ…å ±ã®ç®¡ç†</p>
+											<p>“o˜^î•ñ‚ÌŠÇ—</p>
 										</a>
 									</li>
 								</ul>
@@ -96,19 +96,18 @@
 blogArticleList.setLimit(5);
 blogArticleList.makeList();
 int intId;
-%>
-
-				<!-- Main -->
-					<div id="main">
-<%
 while(blogArticleList.next()){
     BlogArticle article = blogArticleList.getArticle();
+}
 %>
+				<!-- Main -->
+					<div id="main">
+
 						<!-- Post -->
 							<article class="post">
 								<header>
 									<div class="title">
-										<h2><%=TextConv.beforeHtml(article.getSubject())%></h2>
+										<h2><%=TextConv.beforeHtml(blogArticle.getSubject())%></h2>
 									</div>
 									<div class="meta">
 										<time class="published" datetime="2018-01-30">January 28, 2018</time>
@@ -116,25 +115,20 @@ while(blogArticleList.next()){
 									</div>
 								</header>
 								<a href="#" class="image featured"><img src="images/pic01.jpg" alt="" /></a>
-								<p><%=TextConv.beforeHtml(article.getBody())%>
+								<p><%=TextConv.beforeHtml(blogArticle.getBody())%>
 								</p>
 
 								<footer>
 									<ul class="actions">
-										<li><a href="#" class="button big">ç¶šãã‚’èª­ã‚€</a></li>
+										<li><a href="#" class="button big">‘±‚«‚ð“Ç‚Þ</a></li>
 									</ul>
 									<ul class="stats">
-										<li><a href="comment_2.jsp?article_id=<%=article.getId()%>">ã‚³ãƒ¡ãƒ³ãƒˆã™ã‚‹</a></li>
+										<li><a href="comment_2.jsp?article_id=<%=blogArticle.getId()%>">ƒRƒƒ“ƒg‚·‚é</a></li>
 										<li><a href="#" class="icon fa-heart">28</a></li>
 										<li><a href="#" class="icon fa-comment">128</a></li>
 									</ul>
 								</footer>
 							</article>
-
-<%
-}
-%>
-
 
 						<!-- Post -->
 						<!--
@@ -453,7 +447,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
 						<!-- Pagination -->
 							<ul class="actions pagination">
-								<li><a href="#" "stats">ï¼‹æ–°ã—ã„ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’ä½œã‚‹</a></li>
+								<li><a href="#" "stats">{V‚µ‚¢ƒXƒŒƒbƒh‚ðì‚é</a></li>
 							</ul>
 
 					</div>
@@ -466,7 +460,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 								<a href="#" class="logo"><img src="images/logo.jpg" alt="" /></a>
 								<header>
 									<h2>Travel Board</h2>
-									<p>æ—…å¥½ãã®ãŸã‚ã®æŽ²ç¤ºæ¿</p>
+									<p>—·D‚«‚Ì‚½‚ß‚ÌŒfŽ¦”Â</p>
 								</header>
 							</section>
 
@@ -483,6 +477,37 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 											</header>
 											<a href="#" class="image"><img src="images/pic04.jpg" alt="" /></a>
 										</article>
+
+									<!-- Mini Post -->
+										<article class="mini-post">
+											<header>
+												<h3><a href="#"><%=TextConv.beforeHtml(blogArticle.getSubject())%></a></h3>
+												<time class="published" datetime="2015-10-19">October 19, 2015</time>
+												<a href="#" class="author"><img src="images/avatar.jpg" alt="" /></a>
+											</header>
+											<a href="#" class="image"><img src="images/pic05.jpg" alt="" /></a>
+										</article>
+
+									<!-- Mini Post -->
+										<article class="mini-post">
+											<header>
+												<h3><a href="#"><%=TextConv.beforeHtml(blogArticle.getSubject())%></a></h3>
+												<time class="published" datetime="2015-10-18">October 18, 2015</time>
+												<a href="#" class="author"><img src="images/avatar.jpg" alt="" /></a>
+											</header>
+											<a href="#" class="image"><img src="images/pic06.jpg" alt="" /></a>
+										</article>
+
+									<!-- Mini Post -->
+										<article class="mini-post">
+											<header>
+												<h3><a href="#"><%=TextConv.beforeHtml(blogArticle.getSubject())%></a></h3>
+												<time class="published" datetime="2015-10-17">October 17, 2015</time>
+												<a href="#" class="author"><img src="images/avatar.jpg" alt="" /></a>
+											</header>
+											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
+										</article>
+
 								</div>
 							</section>
 
@@ -498,13 +523,49 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
 										</article>
 									</li>
+									<li>
+										<article>
+											<header>
+												<h3><a href="#"><%=TextConv.beforeHtml(blogArticle.getSubject())%></a></h3>
+												<time class="published" datetime="2015-10-15">October 15, 2015</time>
+											</header>
+											<a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a>
+										</article>
+									</li>
+									<li>
+										<article>
+											<header>
+												<h3><a href="#"><%=TextConv.beforeHtml(blogArticle.getSubject())%></a></h3>
+												<time class="published" datetime="2015-10-10">October 10, 2015</time>
+											</header>
+											<a href="#" class="image"><img src="images/pic10.jpg" alt="" /></a>
+										</article>
+									</li>
+									<li>
+										<article>
+											<header>
+												<h3><a href="#"><%=TextConv.beforeHtml(blogArticle.getSubject())%></a></h3>
+												<time class="published" datetime="2015-10-08">October 8, 2015</time>
+											</header>
+											<a href="#" class="image"><img src="images/pic11.jpg" alt="" /></a>
+										</article>
+									</li>
+									<li>
+										<article>
+											<header>
+												<h3><a href="#"><%=TextConv.beforeHtml(blogArticle.getSubject())%></a></h3>
+												<time class="published" datetime="2015-10-06">October 7, 2015</time>
+											</header>
+											<a href="#" class="image"><img src="images/pic12.jpg" alt="" /></a>
+										</article>
+									</li>
 								</ul>
 							</section>
 
 						<!-- About -->
 							<section class="blurb">
 								<h2>About</h2>
-								<p>ã“ã‚Œã‹ã‚‰è¡ŒããŸã„å ´æ‰€ã€è¡Œã£ãŸå ´æ‰€ã‚’æ—…å¥½ããªä»²é–“ã«ç›¸è«‡ãƒ»å…±æœ‰ã§ãã‚‹æŽ²ç¤ºæ¿ã§ã™ã€‚<br>ã‚ãªãŸã®æ¬¡ã®å†’é™ºã®ãƒ’ãƒ³ãƒˆãŒè¦‹ã¤ã‹ã‚‹ã‹ã‚‚ã—ã‚Œã¾ã›ã‚“ã€‚</p>
+								<p>‚±‚ê‚©‚çs‚«‚½‚¢êŠAs‚Á‚½êŠ‚ð—·D‚«‚È’‡ŠÔ‚É‘Š’kE‹¤—L‚Å‚«‚éŒfŽ¦”Â‚Å‚·B<br>‚ ‚È‚½‚ÌŽŸ‚Ì–`Œ¯‚Ìƒqƒ“ƒg‚ªŒ©‚Â‚©‚é‚©‚à‚µ‚ê‚Ü‚¹‚ñB</p>
 
 						<!-- Footer -->
 							<section id="footer">
