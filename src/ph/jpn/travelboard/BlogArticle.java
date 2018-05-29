@@ -23,6 +23,12 @@ public class BlogArticle{
 	public Date getDateTime(){return this.dateTime;}
 	public String getSubject(){return this.strSubject;}
 	public String getBody(){return this.strBody;}
+	public String getBodyTop100(){
+		if (strBody.length() > 100) {
+			 return strBody.substring(0, 100);
+		}
+		return this.strBody;
+		}
 	public boolean isHidden(){return this.blHidden;}
 
 	public void setId(int intIdArg){this.intId = intIdArg;}

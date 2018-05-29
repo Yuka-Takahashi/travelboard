@@ -1,4 +1,4 @@
-<%@page contentType="text/html;charset=Shift_JIS"%>
+<%@page contentType="text/html;charset=UTF-8"%>
 <%@page import="ph.jpn.travelboard.*,java.util.*,java.text.*"%>
 <jsp:useBean class="ph.jpn.travelboard.BlogArticleList" id="blogArticleList" scope="page"/>
 <jsp:useBean class="ph.jpn.travelboard.BlogUser" id="blogUser" scope="session"/>
@@ -116,7 +116,7 @@ while(blogArticleList.next()){
 									</div>
 								</header>
 								<a href="#" class="image featured"><img src="images/pic01.jpg" alt="" /></a>
-								<p><%=TextConv.beforeHtml(article.getBody())%>
+								<p><%=TextConv.beforeHtml(article.getBodyTop100())%>
 								</p>
 
 								<footer>
