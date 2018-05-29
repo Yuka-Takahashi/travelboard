@@ -18,7 +18,7 @@ public class BlogArticle{
 	private String strBody;
 	private Date dateTime = new Date();
 	private	boolean blHidden = true;
-
+	private String strPath;
 	public int getId(){return this.intId;}
 	public Date getDateTime(){return this.dateTime;}
 	public String getSubject(){return this.strSubject;}
@@ -30,7 +30,7 @@ public class BlogArticle{
 		return this.strBody;
 		}
 	public boolean isHidden(){return this.blHidden;}
-
+	public String getPath() { return this.strPath;}
 	public void setId(int intIdArg){this.intId = intIdArg;}
 	public void setSubject(String strSubjectArg){this.strSubject = strSubjectArg;}
 	public void setBody(String strBodyArg){this.strBody = strBodyArg;}
@@ -41,8 +41,9 @@ public class BlogArticle{
 		cal.set(intYear,intMonth-1,intDate,intHour,intMinute);
 		this.dateTime = cal.getTime();
 	}
-
+	public void setPath(String strPathArg){this.strPath = strPathArg;}
 	public void load(int intIdArg) throws Exception{
+
 		Context ctx = new InitialContext();
 		DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/travelboard");
 		Connection conn = ds.getConnection();
@@ -54,6 +55,7 @@ public class BlogArticle{
 			this.dateTime.setTime(rs.getLong("date_time"));
 			this.strSubject=rs.getString("subject");
 			this.strBody=rs.getString("body");
+			this.strPath = rs.getString("path");
 			if(rs.getInt("hidden")==0){
 				this.blHidden=false;
 			}else{

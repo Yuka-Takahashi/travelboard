@@ -115,7 +115,7 @@ while(blogArticleList.next()){
 										<a href="#" class="author"><span class="name"><%=BlogSettings.Author%></span><img src="images/avatar.jpg" alt="" /></a>
 									</div>
 								</header>
-								<a href="#" class="image featured"><img src="images/pic01.jpg" alt="" /></a>
+								<a href="#" class="image featured"><img src="<%= article.getPath() %>" alt="" /></a>
 								<p><%=TextConv.beforeHtml(article.getBodyTop100())%>
 								</p>
 
