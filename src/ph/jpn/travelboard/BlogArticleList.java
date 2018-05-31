@@ -1,7 +1,11 @@
 package ph.jpn.travelboard;
-import java.sql.*;
-import javax.sql.*;
-import javax.naming.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 
 public class BlogArticleList{
 	private Connection connList;
@@ -47,6 +51,7 @@ public class BlogArticleList{
 		}else{
 			this.connList.close();
 		}
+		this.article.setPath(this.rsList.getString("path"));
 		return blResult;
 	}
 
