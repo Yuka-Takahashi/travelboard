@@ -51,7 +51,6 @@ public class BlogArticleList{
 		}else{
 			this.connList.close();
 		}
-		this.article.setPath(this.rsList.getString("path"));
 		return blResult;
 	}
 
