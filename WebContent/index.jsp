@@ -101,8 +101,9 @@ int intId;
 				<!-- Main -->
 					<div id="main">
 <%
+    BlogArticle article = null;
 while(blogArticleList.next()){
-    BlogArticle article = blogArticleList.getArticle();
+    article = blogArticleList.getArticle();
 %>
 						<!-- Post -->
 							<article class="post">
@@ -469,15 +470,24 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 									<p>旅好きのための掲示板</p>
 								</header>
 							</section>
-
-						<!-- Mini Posts -->
+[<%=article.getId()%>]
+<%
+blogArticleList.setPage(article.getId());
+blogArticleList.setLimit(4);
+blogArticleList.makeList();
+%>
+						<!-- Mini List -->
+												<%
+						while(blogArticleList.next()){
+							article = blogArticleList.getArticle();
+						%>
 							<section>
 								<div class="mini-posts">
 
 									<!-- Mini Post -->
 										<article class="mini-post">
 											<header>
-												<h3><a href="#"><%=TextConv.beforeHtml(blogArticle.getSubject())%></a></h3>
+												<h3><%=TextConv.beforeHtml(article.getSubject())%></h3>
 												<time class="published" datetime="2018-01-20">January 20, 2018</time>
 												<a href="#" class="author"><img src="images/avatar.jpg" alt="" /></a>
 											</header>
@@ -485,14 +495,23 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 										</article>
 								</div>
 							</section>
-
+<%
+							}
+blogArticleList.setPage(article.getId());
+blogArticleList.setLimit(4);
+blogArticleList.makeList();
+%>
 						<!-- Posts List -->
+						<%
+						while(blogArticleList.next()){
+							article = blogArticleList.getArticle();
+						%>
 							<section>
 								<ul class="posts">
 									<li>
 										<article>
 											<header>
-												<h3><a href="#"><%=TextConv.beforeHtml(blogArticle.getSubject())%></a></h3>
+												<h3><%=TextConv.beforeHtml(article.getSubject())%></h3>
 												<time class="published" datetime="2015-10-20">October 20, 2015</time>
 											</header>
 											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
@@ -500,7 +519,9 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 									</li>
 								</ul>
 							</section>
-
+<%
+						}
+%>
 						<!-- About -->
 							<section class="blurb">
 								<h2>About</h2>

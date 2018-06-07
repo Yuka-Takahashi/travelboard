@@ -12,7 +12,7 @@ public class BlogArticleList{
 	private Statement stmtList;
 	private ResultSet rsList;
 	private int intLimit=5;
-	private int intPage=1;
+	private int intPage=0;
 	private BlogArticle article = new BlogArticle();
 
 	public void setLimit(int intLimitArg){this.intLimit = intLimitArg;}
@@ -31,15 +31,21 @@ public class BlogArticleList{
 		return (intCount-1)/this.intLimit+1;
 	}
 
-	public void makeList() throws Exception{
-		Context ctx = new InitialContext();
-		DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/travelboard");
-		this.connList = ds.getConnection();
-		this.stmtList = this.connList.createStatement();
-		String strSql = "SELECT * FROM blog ORDER BY date_time DESC LIMIT "
-			+ (this.intPage-1)*this.intLimit + "," + this.intLimit;
-		this.rsList = this.stmtList.executeQuery(strSql);
-	}
+	 public void makeList() throws Exception{
+	        Context ctx = new InitialContext();
+	        DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/travelboard");
+	        this.connList = ds.getConnection();
+	        this.stmtList = this.connList.createStatement();
+	        String strSql = "SELECT a.* FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY id) AS ROW FROM blog ";
+	        if (intPage > 0) {
+	            strSql += "WHERE id > " + intPage;
+	        }
+	        strSql += ") AS a ";
+	        if (intLimit > 0) {
+	            strSql += "WHERE a.row < " + (intLimit + 1);
+	        }
+	        this.rsList = this.stmtList.executeQuery(strSql);
+	    }
 
 	public boolean next() throws Exception{
 		boolean blResult=false;
@@ -47,6 +53,7 @@ public class BlogArticleList{
 			this.article.setId(this.rsList.getInt("id"));
 			this.article.setSubject(this.rsList.getString("subject"));
 			this.article.setBody(this.rsList.getString("body"));
+			this.article.setPath(this.rsList.getString("path"));
 			blResult=true;
 		}else{
 			this.connList.close();
