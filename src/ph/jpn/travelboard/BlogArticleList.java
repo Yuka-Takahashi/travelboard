@@ -31,21 +31,21 @@ public class BlogArticleList{
 		return (intCount-1)/this.intLimit+1;
 	}
 
-	 public void makeList() throws Exception{
-	        Context ctx = new InitialContext();
-	        DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/travelboard");
-	        this.connList = ds.getConnection();
-	        this.stmtList = this.connList.createStatement();
-	        String strSql = "SELECT a.* FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY id) AS ROW FROM blog ";
-	        if (intPage > 0) {
-	            strSql += "WHERE id > " + intPage;
-	        }
-	        strSql += ") AS a ";
-	        if (intLimit > 0) {
-	            strSql += "WHERE a.row < " + (intLimit + 1);
-	        }
-	        this.rsList = this.stmtList.executeQuery(strSql);
-	    }
+	public void makeList() throws Exception{
+		Context ctx = new InitialContext();
+		DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/travelboard");
+		this.connList = ds.getConnection();
+		this.stmtList = this.connList.createStatement();
+		String strSql = "SELECT a.* FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY id) AS ROW FROM blog ";
+		if (intPage > 0) {
+			strSql += "WHERE id > " + intPage;
+		}
+		strSql += ") AS a ";
+		if (intLimit > 0) {
+			strSql += "WHERE a.row < " + (intLimit + 1);
+		}
+		this.rsList = this.stmtList.executeQuery(strSql);
+	}
 
 	public boolean next() throws Exception{
 		boolean blResult=false;
