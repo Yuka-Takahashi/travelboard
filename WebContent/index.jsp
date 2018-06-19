@@ -21,14 +21,6 @@
 				<!-- Header -->
 					<header id="header">
 						<h1><a href="#">Travel Board</a></h1>
-						<nav class="links">
-							<ul>
-								<li><a href="#">NEW</a></li>
-								<li><a href="#">RANKING</a></li>
-								<li><a href="#">AREA</a></li>
-								<li><a href="comment_2.jsp?article_id=<%=blogArticle.getId()%>">+CREATE THREAD</a></li>
-							</ul>
-						</nav>
 						<nav class="main">
 							<ul>
 								<li class="search">
@@ -57,24 +49,6 @@
 						<!-- Links -->
 							<section>
 								<ul class="links">
-									<li>
-										<a href="#">
-											<h3>NEW</h3>
-											<p>新着のスレッド</p>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<h3>RANKING</h3>
-											<p>コメントが多いスレッド</p>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<h3>AREA</h3>
-											<p>エリアごとのスレッド</p>
-										</a>
-									</li>
 									<li>
 										<a href="#">
 											<h3>MYPAGE</h3>
@@ -112,8 +86,8 @@ while(blogArticleList.next()){
 										<h2><%=TextConv.beforeHtml(article.getSubject())%></h2>
 									</div>
 									<div class="meta">
-										<time class="published" datetime="2018-01-30">January 28, 2018</time>
-										<a href="#" class="author"><span class="name"><%=BlogSettings.Author%></span><img src="images/avatar.jpg" alt="" /></a>
+										<time class="published" datetime="<%= article.getDateTime() %>"><%= article.getDateTime() %></time>
+										<a href="#" class="author"><span class="name"><%=article.getNickName()%></span></a>
 									</div>
 								</header>
 								<a href="#" class="image featured"><img src="<%= article.getPath() %>" alt="" /></a>
@@ -126,7 +100,6 @@ while(blogArticleList.next()){
 									</ul>
 									<ul class="stats">
 										<li><a href="comment_2.jsp?article_id=<%=article.getId()%>">コメントする</a></li>
-										<li><a href="#" class="icon fa-heart">28</a></li>
 										<li><a href="#" class="icon fa-comment">128</a></li>
 									</ul>
 								</footer>
@@ -147,7 +120,7 @@ while(blogArticleList.next()){
 									</div>
 									<div class="meta">
 										<time class="published" datetime="2015-10-18">October 18, 2015</time>
-										<a href="#" class="author"><span class="name">Jane Doe</span><img src="images/avatar.jpg" alt="" /></a>
+										<a href="#" class="author"><span class="name">Jane Doe</span></a>
 									</div>
 								</header>
 
@@ -489,7 +462,7 @@ blogArticleList.makeList();
 											<header>
 												<h3><%=TextConv.beforeHtml(article.getSubject())%></h3>
 												<time class="published" datetime="2018-01-20">January 20, 2018</time>
-												<a href="#" class="author"><img src="images/avatar.jpg" alt="" /></a>
+												<a href="#" class="author"></a>
 											</header>
 											<a href="#" class="image"><img src="images/pic04.jpg" alt="" /></a>
 										</article>

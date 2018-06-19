@@ -5,8 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -16,13 +14,15 @@ public class BlogArticle{
 	private int intId=-1;
 	private String strSubject;
 	private String strBody;
-	private Date dateTime = new Date();
+	private String dateTime;
 	private	boolean blHidden = true;
 	private String strPath;
+	private String strNickName;
 	public int getId(){return this.intId;}
-	public Date getDateTime(){return this.dateTime;}
+	public String getDateTime(){return this.dateTime;}
 	public String getSubject(){return this.strSubject;}
 	public String getBody(){return this.strBody;}
+	public String getNickName(){return this.strNickName;}
 	public String getBodyTop100(){
 		if (strBody.length() > 100) {
 			 return strBody.substring(0, 100);
@@ -34,14 +34,9 @@ public class BlogArticle{
 	public void setId(int intIdArg){this.intId = intIdArg;}
 	public void setSubject(String strSubjectArg){this.strSubject = strSubjectArg;}
 	public void setBody(String strBodyArg){this.strBody = strBodyArg;}
-	public void setDateTime(Date dateTimeArg){this.dateTime = dateTimeArg;}
-	public void setDateTimeInt(
-			int intYear,int intMonth,int intDate,int intHour,int intMinute){
-		Calendar cal = Calendar.getInstance();
-		cal.set(intYear,intMonth-1,intDate,intHour,intMinute);
-		this.dateTime = cal.getTime();
-	}
+	public void setDateTime(String dateTimeArg){this.dateTime = dateTimeArg;}
 	public void setPath(String strPathArg){this.strPath = strPathArg;}
+	public void setNickName(String strNickName){this.strNickName = strNickName;}
 	public void load(int intIdArg) throws Exception{
 
 		Context ctx = new InitialContext();
@@ -52,10 +47,11 @@ public class BlogArticle{
 		ResultSet rs = stmt.executeQuery(strSql);
 		if(rs.next()){
 			this.intId = rs.getInt("id");
-			this.dateTime.setTime(rs.getLong("date_time"));
+			this.dateTime = rs.getString("date_time");
 			this.strSubject=rs.getString("subject");
 			this.strBody=rs.getString("body");
 			this.strPath = rs.getString("path");
+			this.strNickName = rs.getString("nickname");
 			if(rs.getInt("hidden")==0){
 				this.blHidden=false;
 			}else{
@@ -65,23 +61,34 @@ public class BlogArticle{
 		conn.close();
 	}
 
-	public void add() throws Exception,Exception{
+	public void add() throws Exception{
 		if(this.intId==-1){
 			throw new Exception();
 		}
-		Context ctx = new InitialContext();
-		DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/travelboard");
-		Connection conn = ds.getConnection();
-		Statement stmt = conn.createStatement();
-		String strSql = "INSERT INTO blog (date_time,subject,body) VALUES ("
-			+ this.dateTime.getTime() + ","
-			+ "'" + this.strSubject + "',"
-			+ "'" + this.strBody + "')";
-		stmt.executeUpdate(strSql);
-		ResultSet rs = stmt.executeQuery("SELECT LAST_INSERT_ID()");
-		rs.next();
-		this.intId=rs.getInt(1);
-		conn.close();
+		Context ctx = null;
+		DataSource ds = null;
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			ctx = new InitialContext();
+			ds = (DataSource)ctx.lookup("java:comp/env/jdbc/travelboard");
+			conn = ds.getConnection();
+			stmt = conn.createStatement();
+			String strSql = "INSERT INTO blog (date_time,subject,body,nickname) VALUES (CURRENT_TIMESTAMP,"
+				+ "'" + this.strSubject + "',"
+				+ "'" + this.strBody + "',"
+				+ "'" + this.strNickName + "')";
+			stmt.executeUpdate(strSql);
+			rs = stmt.executeQuery("SELECT LAST_INSERT_ID()");
+			rs.next();
+			this.intId=rs.getInt(1);
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}finally {
+			conn.close();
+		}
 	}
 
 	public void update() throws Exception,Exception{
@@ -92,7 +99,7 @@ public class BlogArticle{
 		DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/travelboard");
 		Connection conn = ds.getConnection();
 		Statement stmt = conn.createStatement();
-		String strSql = "UPDATE blog SET date_time ="+ this.dateTime.getTime() + ","
+		String strSql = "UPDATE blog SET date_time = CURRENT_TIMESTAMP,"
 			+ "subject = '" + this.strSubject + "',"
 			+ "body='" + this.strBody + "'"
 			+ "WHERE id = " + this.intId;
@@ -124,7 +131,7 @@ public class BlogArticle{
 		this.intId=0;
 		this.strSubject="";
 		this.strBody="";
-		this.dateTime = new Date();
+		this.dateTime = "";
 	}
 
 	public ArrayList getImageList() throws Exception{
@@ -152,7 +159,7 @@ public class BlogArticle{
 		if(this.intId==-1){
 			throw new Exception();
 		}
-		this.dateTime = new Date();
+		this.dateTime = "";
 		Context ctx = new InitialContext();
 		DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/travelboard");
 		Connection conn = ds.getConnection();
@@ -171,7 +178,7 @@ public class BlogArticle{
 		if(this.intId==-1){
 			throw new Exception();
 		}
-		this.dateTime = new Date();
+		this.dateTime = "";
 		Context ctx = new InitialContext();
 		DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/travelboard");
 		Connection conn = ds.getConnection();

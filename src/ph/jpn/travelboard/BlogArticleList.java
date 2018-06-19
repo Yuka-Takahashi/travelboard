@@ -2,6 +2,7 @@ package ph.jpn.travelboard;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Date;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -13,7 +14,9 @@ public class BlogArticleList{
 	private ResultSet rsList;
 	private int intLimit=5;
 	private int intPage=0;
+	private int pageCount = 0;
 	private BlogArticle article = new BlogArticle();
+	private Date dateTime = new Date();
 
 	public void setLimit(int intLimitArg){this.intLimit = intLimitArg;}
 	public void setPage(int intPageArg){this.intPage=intPageArg;}
@@ -32,29 +35,34 @@ public class BlogArticleList{
 	}
 
 	public void makeList() throws Exception{
+		pageCount = 0;
 		Context ctx = new InitialContext();
 		DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/travelboard");
 		this.connList = ds.getConnection();
 		this.stmtList = this.connList.createStatement();
-		String strSql = "SELECT a.* FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY id) AS ROW FROM blog ";
+		String strSql = "SELECT * FROM blog ";
 		if (intPage > 0) {
-			strSql += "WHERE id > " + intPage;
+			strSql += "WHERE id < " + intPage;
 		}
-		strSql += ") AS a ";
-		if (intLimit > 0) {
-			strSql += "WHERE a.row < " + (intLimit + 1);
-		}
+		strSql += " ORDER BY date_time DESC";
 		this.rsList = this.stmtList.executeQuery(strSql);
 	}
 
 	public boolean next() throws Exception{
+		if (pageCount >= intLimit) {
+			this.connList.close();
+			return false;
+		}
 		boolean blResult=false;
 		if(this.rsList.next()){
 			this.article.setId(this.rsList.getInt("id"));
 			this.article.setSubject(this.rsList.getString("subject"));
 			this.article.setBody(this.rsList.getString("body"));
 			this.article.setPath(this.rsList.getString("path"));
+			this.article.setDateTime(this.rsList.getString("date_time"));
+			this.article.setNickName(this.rsList.getString("nickname"));
 			blResult=true;
+			pageCount += 1;
 		}else{
 			this.connList.close();
 		}

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=Shift_JIS"%>
+<%@page contentType="text/html;charset=UTF-8"%>
 <%@ page import = "java.util.*,ph.jpn.travelboard.*"%>
 <jsp:useBean class="ph.jpn.travelboard.BlogArticle" id="blogArticle" scope="session"/>
 <jsp:useBean class="ph.jpn.travelboard.BlogUser" id="blogUser" scope="session"/>
@@ -13,44 +13,30 @@ if(strNew!=null){
 %>
 <HTML>
 <HEAD>
-<TITLE><%=BlogSettings.BlogTitle%></TITLE>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 <SCRIPT TYPE="text/javascript">
 function func_check(){
 	if(document.form1.subject.value==""){
-		alert("Œ–¼‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢");
+		alert("ä»¶åã‚’å…¥åŠ›ã—ã¦ãã ã•ã„");
 		return false;
 	}
 }
 </SCRIPT>
 </HEAD>
 <BODY>
-<%=BlogSettings.BlogTitle%><BR>
 <FORM NAME="form1" ACTION="edit_2.jsp" METHOD="post" ONSUBMIT="return func_check()">
-<%
-Calendar cal = Calendar.getInstance();
-cal.setTime(blogArticle.getDateTime());
-%>
-<INPUT TYPE="text" NAME="year" SIZE="4" VALUE="<%=cal.get(Calendar.YEAR)%>">”N
-<INPUT TYPE="text" NAME="month" SIZE="2" VALUE="<%=cal.get(Calendar.MONTH)+1%>">Œ
-<INPUT TYPE="text" NAME="date" SIZE="2" VALUE="<%=cal.get(Calendar.DATE)%>">“ú
-<INPUT TYPE="text" NAME="hour" SIZE="2" VALUE="<%=cal.get(Calendar.HOUR_OF_DAY)%>">
-<INPUT TYPE="text" NAME="minute" SIZE="2" VALUE="<%=cal.get(Calendar.MINUTE)%>">•ª<BR>
-Œ–¼:<INPUT TYPE="text" NAME="subject" SIZE="80" 
+ä»¶å:<INPUT TYPE="text" NAME="subject" SIZE="80"
 	VALUE="<%=blogArticle.getSubject()%>"><BR>
-–{•¶:<TEXTAREA COLS="60" ROWS="5" NAME="body"><%=blogArticle.getBody()%></TEXTAREA><BR>
-<INPUT TYPE="submit" VALUE="‘—M">
-<INPUT TYPE="button" VALUE="–ß‚é" ONCLICK="history.back()">
+æœ¬æ–‡:<TEXTAREA COLS="60" ROWS="5" NAME="body"><%=blogArticle.getBody()%></TEXTAREA><BR>
+ãƒ‹ãƒƒã‚¯ãƒãƒ¼ãƒ :<INPUT TYPE="text" NAME="nick_name" SIZE="80"
+	VALUE="<%=blogUser.getNickName()%>" readonly><BR>
+<INPUT TYPE="submit" VALUE="é€ä¿¡">
+<INPUT TYPE="button" VALUE="æˆ»ã‚‹" ONCLICK="history.back()">
 </FORM>
-<%
-ArrayList alImage = blogArticle.getImageList();
-for(int i=0;i<alImage.size();i++){%>
-	<IMG SRC="/travelboard/ImageConv/<%=blogArticle.getId()+"_"+alImage.get(i)%>"
-	STYLE="float:left;"><BR>
-	&lt;IMG SRC="<%=alImage.get(i)%>"&gt;<BR>
-	&lt;IMGL SRC="<%=alImage.get(i)%>"&gt;<BR>
-	&lt;IMGC SRC="<%=alImage.get(i)%>"&gt;<BR>
-	&lt;IMGR SRC="<%=alImage.get(i)%>"&gt;<BR>
-<HR STYLE="clear:both;">
-<%}%>
 </BODY>
 </HTML>
