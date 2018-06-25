@@ -96,7 +96,7 @@ while(blogArticleList.next()){
 
 								<footer>
 									<ul class="actions">
-										<li><a href="#" class="button big">続きを読む</a></li>
+										<li><a href="/travelboard/index.jsp?id=<%= article.getId() %>" class="button big">続きを読む</a></li>
 									</ul>
 									<ul class="stats">
 										<li><a href="comment_2.jsp?article_id=<%=article.getId()%>">コメントする</a></li>
@@ -427,7 +427,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
 						<!-- Pagination -->
 							<ul class="actions pagination">
-								<li><a href="#" "stats">＋新しいスレッドを作る</a></li>
+								<li><a href="/travelboard/edit_1.jsp?new=1" "stats">＋新しいスレッドを作る</a></li>
 							</ul>
 
 					</div>
@@ -443,7 +443,6 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 									<p>旅好きのための掲示板</p>
 								</header>
 							</section>
-[<%=article.getId()%>]
 <%
 blogArticleList.setPage(article.getId());
 blogArticleList.setLimit(4);

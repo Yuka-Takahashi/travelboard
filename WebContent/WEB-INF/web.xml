@@ -35,6 +35,14 @@ version="2.4">
 	    <servlet-name>CastRss</servlet-name>
 	    <url-pattern>/blog/rdf</url-pattern>
 	</servlet-mapping>
+	<servlet>
+	    <servlet-name>UploadServlet</servlet-name>
+	    <servlet-class>ph.jpn.travelboard.UploadServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>UploadServlet</servlet-name>
+	    <url-pattern>/UploadServlet</url-pattern>
+	</servlet-mapping>
 	<context-param>
 		<param-name>adminEmailAddress</param-name>
 		<param-value>admin@example.com</param-value>

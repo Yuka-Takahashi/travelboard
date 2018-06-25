@@ -25,14 +25,16 @@ function func_check(){
 		alert("件名を入力してください");
 		return false;
 	}
+	form1.action = "/travelboard/UploadServlet";
 }
 </SCRIPT>
 </HEAD>
 <BODY>
-<FORM NAME="form1" ACTION="edit_2.jsp" METHOD="post" ONSUBMIT="return func_check()">
+<FORM NAME="form1" ACTION="/travelbord/edit_2.jsp" METHOD="post" ONSUBMIT="return func_check()" ENCTYPE="multipart/form-data">
 件名:<INPUT TYPE="text" NAME="subject" SIZE="80"
 	VALUE="<%=blogArticle.getSubject()%>"><BR>
 本文:<TEXTAREA COLS="60" ROWS="5" NAME="body"><%=blogArticle.getBody()%></TEXTAREA><BR>
+画像:<INPUT TYPE="file" name="imagefile"/><BR><BR>
 ニックネーム:<INPUT TYPE="text" NAME="nick_name" SIZE="80"
 	VALUE="<%=blogUser.getNickName()%>" readonly><BR>
 <INPUT TYPE="submit" VALUE="送信">

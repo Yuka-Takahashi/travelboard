@@ -75,10 +75,11 @@ public class BlogArticle{
 			ds = (DataSource)ctx.lookup("java:comp/env/jdbc/travelboard");
 			conn = ds.getConnection();
 			stmt = conn.createStatement();
-			String strSql = "INSERT INTO blog (date_time,subject,body,nickname) VALUES (CURRENT_TIMESTAMP,"
+			String strSql = "INSERT INTO blog (date_time,subject,body,nickname,path) VALUES (CURRENT_TIMESTAMP,"
 				+ "'" + this.strSubject + "',"
 				+ "'" + this.strBody + "',"
-				+ "'" + this.strNickName + "')";
+				+ "'" + this.strNickName + "',"
+				+ "'" + this.strPath + "')";
 			stmt.executeUpdate(strSql);
 			rs = stmt.executeQuery("SELECT LAST_INSERT_ID()");
 			rs.next();

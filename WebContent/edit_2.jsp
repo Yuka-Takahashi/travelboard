@@ -20,27 +20,11 @@ int intDate=0;
 int intHour=0;
 int intMinute=0;
 
-try{
-	blogArticle.setSubject(request.getParameter("subject"));
-	blogArticle.setBody(request.getParameter("body"));
-	blogArticle.setNickName(request.getParameter("nick_name"));
-	try{
-		if(blogArticle.getId()==0){
-			blogArticle.add();
-		}else{
-			blogArticle.update();
-		}
 		sbMessage.append("書き込みを完了しました。<BR>");
 		sbMessage.append("<A HREF=\"index.jsp?id="+blogArticle.getId()+"\">戻る</A><BR>");
-	}catch(Exception e){
-		%><jsp:forward page="/error/session_timeout.jsp"/><%
-	}
-}catch(NumberFormatException e){
-	sbMessage.append("日付が正しくありません。<BR>");
-	sbMessage.append("<A HREF=\"javascript:history.back()\">戻る</A><BR>");
-}
 %>
 <BODY>
-<%=sbMessage.toString()%>
+書き込みを完了しました。<BR>
+<A HREF="/travelboard/index.jsp">戻る</A><BR>
 </BODY>
 </HTML>
