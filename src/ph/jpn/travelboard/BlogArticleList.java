@@ -61,6 +61,15 @@ public class BlogArticleList{
 			this.article.setPath(this.rsList.getString("path"));
 			this.article.setDateTime(this.rsList.getString("date_time"));
 			this.article.setNickName(this.rsList.getString("nickname"));
+
+			Context ctx = new InitialContext();
+			String strSql = "SELECT * FROM comment WHERE article_id = " + this.article.getId();
+			ResultSet rs = this.stmtList.executeQuery(strSql);
+			int count = 0;
+			while (rs.next()) {
+				count++;
+			}
+			this.article.setCommentCount(count);
 			blResult=true;
 			pageCount += 1;
 		}else{

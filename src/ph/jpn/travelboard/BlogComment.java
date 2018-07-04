@@ -52,6 +52,24 @@ public class BlogComment{
 		this.strBody = strBodyArg;
 	}
 
+	public void addComment() throws Exception {
+		Context ctx = new InitialContext();
+		DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/travelboard");
+		Connection conn = ds.getConnection();
+		Statement stmt = conn.createStatement();
+		String sql = "INSERT INTO comment (article_id,body,commenter,date_time)VALUES(";
+		sql += intArticleId + ",'";
+		sql+= strBody + "','";
+		sql+= strCommenter + "',";
+		sql+="CURRENT_TIMESTAMP)";
+		try{
+			stmt.executeUpdate(sql);
+		}catch(SQLException se){
+			throw new Exception(se.getMessage()+"\n"+sql);
+		}
+		conn.close();
+	}
+
 	public boolean loadWithPassword(int intIdArg,String strPassword) throws Exception{
 		boolean blResult;
 		String strSql = "SELECT * FROM comment WHERE id=" + intIdArg

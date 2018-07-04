@@ -23,5 +23,5 @@
              driverClassName="org.mariadb.jdbc.Driver"
              url="jdbc:mysql://localhost:3306/travelboard"
              username="root"
-             password="" />
+             password="Test" />
 </Context>

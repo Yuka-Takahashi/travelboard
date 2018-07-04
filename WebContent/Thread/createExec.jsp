@@ -14,14 +14,8 @@
 <%
 StringBuffer sbMessage = new StringBuffer();
 request.setCharacterEncoding("UTF-8");
-int intYear=0;
-int intMonth=0;
-int intDate=0;
-int intHour=0;
-int intMinute=0;
-
 		sbMessage.append("書き込みを完了しました。<BR>");
-		sbMessage.append("<A HREF=\"index.jsp?id="+blogArticle.getId()+"\">戻る</A><BR>");
+		sbMessage.append("<A HREF='detail.jsp?id="+blogArticle.getId()+"'>スレッドへ</A><BR>");
 %>
 <BODY>
 書き込みを完了しました。<BR>

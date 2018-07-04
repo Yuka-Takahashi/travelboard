@@ -5,6 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -18,11 +21,15 @@ public class BlogArticle{
 	private	boolean blHidden = true;
 	private String strPath;
 	private String strNickName;
+	private List<Map<String, String>> comment;
+	private int commentcount;
 	public int getId(){return this.intId;}
 	public String getDateTime(){return this.dateTime;}
 	public String getSubject(){return this.strSubject;}
 	public String getBody(){return this.strBody;}
 	public String getNickName(){return this.strNickName;}
+	public List<Map<String, String>> getComment(){return this.comment;}
+	public int getCommentCount(){return this.commentcount;}
 	public String getBodyTop100(){
 		if (strBody.length() > 100) {
 			 return strBody.substring(0, 100);
@@ -30,13 +37,26 @@ public class BlogArticle{
 		return this.strBody;
 		}
 	public boolean isHidden(){return this.blHidden;}
-	public String getPath() { return this.strPath;}
+	public String getPath() {
+		if (strPath == null || strPath.length() < 1) {
+			return "/travelboard/images/noImage.jpg";
+		}
+		return this.strPath;
+	}
 	public void setId(int intIdArg){this.intId = intIdArg;}
 	public void setSubject(String strSubjectArg){this.strSubject = strSubjectArg;}
 	public void setBody(String strBodyArg){this.strBody = strBodyArg;}
-	public void setDateTime(String dateTimeArg){this.dateTime = dateTimeArg;}
+	public void setDateTime(String dateTimeArg){
+		if (dateTimeArg.length() > 16) {
+			this.dateTime = dateTimeArg.substring(0, 16);
+		} else {
+			this.dateTime = dateTimeArg;
+		}
+	}
 	public void setPath(String strPathArg){this.strPath = strPathArg;}
 	public void setNickName(String strNickName){this.strNickName = strNickName;}
+	public void setComment(List<Map<String,String>> comment){this.comment = comment;}
+	public void setCommentCount(int commentcount){this.commentcount = commentcount;}
 	public void load(int intIdArg) throws Exception{
 
 		Context ctx = new InitialContext();
@@ -47,7 +67,7 @@ public class BlogArticle{
 		ResultSet rs = stmt.executeQuery(strSql);
 		if(rs.next()){
 			this.intId = rs.getInt("id");
-			this.dateTime = rs.getString("date_time");
+			setDateTime(rs.getString("date_time"));
 			this.strSubject=rs.getString("subject");
 			this.strBody=rs.getString("body");
 			this.strPath = rs.getString("path");
@@ -57,6 +77,19 @@ public class BlogArticle{
 			}else{
 				this.blHidden=true;
 			}
+			strSql = "SELECT * FROM comment WHERE article_id = " + intIdArg;
+			ResultSet rs2 = stmt.executeQuery(strSql);
+			int count=0;
+			List<Map<String,String>> tmpCmt = new ArrayList<>();
+			while(rs2.next()){
+				Map<String, String> tmpMap = new HashMap<>();
+				tmpMap.put("body", rs2.getString("body"));
+				tmpMap.put("commenter", rs2.getString("commenter"));
+				tmpCmt.add(tmpMap);
+				count++;
+			}
+			this.comment = tmpCmt;
+			this.commentcount = count;
 		}
 		conn.close();
 	}

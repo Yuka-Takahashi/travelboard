@@ -3,6 +3,9 @@
 <jsp:useBean class="ph.jpn.travelboard.BlogArticleList" id="blogArticleList" scope="page"/>
 <jsp:useBean class="ph.jpn.travelboard.BlogUser" id="blogUser" scope="session"/>
 <jsp:useBean class="ph.jpn.travelboard.BlogArticle" id="blogArticle" scope="session"/>
+<%
+int strId = Integer.parseInt(request.getParameter("id"));
+%>
 <html>
 	<head>
 		<title>Travel Board</title>
@@ -66,18 +69,12 @@
 							</section>
 
 					</section>
-<%
-blogArticleList.setLimit(5);
-blogArticleList.makeList();
-int intId;
-%>
-
 				<!-- Main -->
 					<div id="main">
 <%
-    BlogArticle article = null;
-while(blogArticleList.next()){
-    article = blogArticleList.getArticle();
+    BlogArticle article = new BlogArticle();
+	article.setId(strId);
+    article.load(strId);
 %>
 						<!-- Post -->
 							<article class="post">
@@ -91,23 +88,30 @@ while(blogArticleList.next()){
 									</div>
 								</header>
 								<a href="#" class="image featured"><img src="<%= article.getPath() %>" alt="" /></a>
-								<p><%=TextConv.beforeHtml(article.getBodyTop100())%>
+								<p><%=TextConv.beforeHtml(article.getBody())%>
 								</p>
+<%
+	List<Map<String,String>> comment = article.getComment();
+	if (comment.size() > 0) {
+%>
+	コメント一覧<br/>
+<%
 
+	}
+	for (Map<String, String> tmpMap : comment) {
+%>
+	<%= tmpMap.get("body") %><br/>
+	<%= tmpMap.get("commenter") %><br/>
+<%
+	}
+%>
 								<footer>
-									<ul class="actions">
-										<li><a href="/travelboard/detail.jsp?id=<%= article.getId() %>" class="button big">続きを読む</a></li>
-									</ul>
 									<ul class="stats">
 										<li><a href="/travelboard/Comment/createComment.jsp?article_id=<%=article.getId()%>">コメントする</a></li>
 										<li><a href="#" class="icon fa-comment"><%=article.getCommentCount() %></a></li>
 									</ul>
 								</footer>
 							</article>
-
-<%
-}
-%>
 
 
 						<!-- Post -->
@@ -427,7 +431,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
 						<!-- Pagination -->
 							<ul class="actions pagination">
-								<li><a href="/travelboard/Thread/createThread.jsp?new=1">＋新しいスレッドを作る</a></li>
+								<li><a href="/travelboard/edit_1.jsp?new=1" "stats">＋新しいスレッドを作る</a></li>
 							</ul>
 
 					</div>
