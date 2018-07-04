@@ -20,7 +20,7 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="#">Travel Board</a></h1>
+						<h1><a href="index.jsp">Travel Board</a></h1>
 						<nav class="main">
 							<ul>
 								<li class="search">
@@ -146,7 +146,7 @@ blogArticleList.makeList();
 												<time class="published" datetime="2018-01-20">January 20, 2018</time>
 												<a href="#" class="author"></a>
 											</header>
-											<a href="#" class="image"><img src="<%= article.getPath() %>" alt="" /></a>
+											<a href="/travelboard/detail.jsp?id=<%= article.getId() %>" class="image"><img src="<%= article.getPath() %>" alt="" /></a>
 										</article>
 								</div>
 							</section>
@@ -169,7 +169,7 @@ blogArticleList.makeList();
 												<h3><%=TextConv.beforeHtml(article.getSubject())%></h3>
 												<time class="published" datetime="2015-10-20">October 20, 2015</time>
 											</header>
-											<a href="#" class="image"><img src="<%= article.getPath() %>" alt="" /></a>
+											<a href="/travelboard/detail.jsp?id=<%= article.getId() %>" class="image"><img src="<%= article.getPath() %>" alt="" /></a>
 										</article>
 									</li>
 								</ul>

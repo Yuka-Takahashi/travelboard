@@ -23,7 +23,7 @@ int strId = Integer.parseInt(request.getParameter("id"));
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="#">Travel Board</a></h1>
+						<h1><a href="index.jsp">Travel Board</a></h1>
 						<nav class="main">
 							<ul>
 								<li class="search">
