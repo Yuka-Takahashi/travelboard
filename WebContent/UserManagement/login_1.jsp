@@ -11,7 +11,7 @@
 		<!--[if lte IE 8]><link rel="stylesheet" href="/travelboard/assets/css/ie8.css" /><![endif]-->
 </HEAD>
 <BODY>
-<FORM ACTION="login_2.jsp" METHOD="post">
+<FORM ACTION="/travelboard/UserManagement/login_2.jsp" METHOD="post">
 <TABLE>
 <TR><TD>ユーザー名</TD><TD><INPUT TYPE="text" NAME="user_name"></TD></TR>
 <TR><TD>パスワード</TD><TD><INPUT TYPE="password" NAME="password"></TD></TR>
